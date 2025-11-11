@@ -68,7 +68,7 @@
         closeOnSelect: true,
         conjunction: ", ",
         dateFormat: "Y-m-d",
-        defaultHour: 12,
+        defaultHour: 0,
         defaultMinute: 0,
         defaultSeconds: 0,
         disable: [],
