@@ -62,6 +62,24 @@ RSpec.describe 'Datetimepicker widget', type: :request, js: true do
     expect(find('#field_test_datetime_field + input').value).to eq '12H34M56S'
   end
 
+  it 'defaults to 12AM (00:00)' do
+    visit new_path(model_name: 'field_test')
+    is_expected.to have_css '.form-control.flatpickr-input', visible: false
+
+    # Verify defaultHour is set to 0 (12AM) instead of the flatpickr default of 12 (12PM)
+    default_hour = page.evaluate_script <<-JS
+      document.querySelector('#field_test_datetime_field')._flatpickr.config.defaultHour
+    JS
+    expect(default_hour).to eq 0
+
+    # Verify that when a date is set with time 00:00, it works correctly
+    page.execute_script <<-JS
+      document.querySelector('#field_test_datetime_field')._flatpickr.setDate('2021-01-15 00:00:00');
+    JS
+    expect(find('[name="field_test[datetime_field]"]', visible: false).value).to eq '2021-01-15T00:00:00'
+    expect(find('#field_test_datetime_field + input').value).to match(/January 15, 2021 00:00/)
+  end
+
   context 'with locale set' do
     around(:each) do |example|
       original = I18n.default_locale
