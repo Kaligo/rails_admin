@@ -12,6 +12,14 @@ config.model 'YourRailsModel' do
   end
 end
 ```
+- Set defaultHour to 0 for flatpickr-with-locales ([8552390](https://github.com/Kaligo/rails_admin/commit/8552390be7afa2a765e125f28acd8b544b357e10))
+
+```javascript
+var defaults = {
+  // some default properties 
+  defaultHour: 0
+}
+```
 
 ## [Unreleased](https://github.com/railsadminteam/rails_admin/tree/HEAD)
 
